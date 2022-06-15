@@ -22,8 +22,6 @@ Makefile
 *.so
 *.so.*
 gl.c
-include/*
-include
 
 # Executables
 *.exe
