@@ -2,11 +2,13 @@
 #define PADDLE_H
 
 #include "mathutil.h";
+#include "collision.h"
 
 struct Paddle
 {
-    Rect 
+    Collider collider;
     Vec2 position;
+    
 } typedef Paddle;
 
 void paddleInit();
