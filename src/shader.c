@@ -65,7 +65,14 @@ Shader createShader(const char* vertexPath, const char* fragPath)
     return newShader;
 };
 
-void destroyShader()
+void destroyShader(Shader shaderToDestroy)
+{
+    glDeleteProgram(shaderToDestroy.program);
+    glDeleteShader(shaderToDestroy.vertexID);
+    glDeleteShader(shaderToDestroy.fragmentID);
+};
+
+void bindShader(Shader shaderToBind)
 {
 
 };
