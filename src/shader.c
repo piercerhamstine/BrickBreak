@@ -53,7 +53,19 @@ Shader createShader(const char* vertexPath, const char* fragPath)
     glLinkProgram(newShader.program);
 
     int success;
+    char log[512];
     glGetProgramiv(newShader.program, GL_LINK_STATUS, &success);
+    if(success == NULL)
+    {
+        glGetProgramInfoLog(newShader.program, 512, NULL, log);
+        printf("Error: Shader program failed. ");
+        printf(log);
+    };
 
     return newShader;
+};
+
+void destroyShader()
+{
+
 };
