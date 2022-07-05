@@ -13,7 +13,7 @@ struct Shader
 } typedef Shader;
 
 Shader createShader(const char* vertexPath, const char* fragPath);
-void destroyShader();
-void useShader();
+void destroyShader(Shader shader);
+void useShader(Shader shader);
 
 #endif
