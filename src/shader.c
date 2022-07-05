@@ -1,4 +1,6 @@
 #include "include/shader.h"
+#include <stdlib.h>
+#include <assert.h>
 
 GLint compileShader(const char* path, GLenum shaderType)
 {
@@ -24,7 +26,7 @@ GLint compileShader(const char* path, GLenum shaderType)
     fclose(shaderFile);
 
     GLuint shader = glCreateShader(shaderType);
-    glShaderSource(shader, 1, fileText, NULL);
+    glShaderSource(shader, 1, (const GLchar* const*)&fileText, NULL);
     glCompileShader(shader);
 
     GLint success;
@@ -55,7 +57,7 @@ Shader createShader(const char* vertexPath, const char* fragPath)
     int success;
     char log[512];
     glGetProgramiv(newShader.program, GL_LINK_STATUS, &success);
-    if(success == NULL)
+    if(!success)
     {
         glGetProgramInfoLog(newShader.program, 512, NULL, log);
         printf("Error: Shader program failed. ");

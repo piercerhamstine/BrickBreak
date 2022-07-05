@@ -1,14 +1,12 @@
-#include "glad/gl.h"
-#include <GLFW/glfw3.h>
-
-
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "include/shader.h"
+#include "glad/gl.h"
+#include <GLFW/glfw3.h>
 
-#include "stb_image.h"
+#include "include/stb/stb_image.h"
+#include "include/shader.h"
 
 void error_callback(int error, const char* desc);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -25,7 +23,6 @@ int main(void)
         exit(EXIT_FAILURE);
         return -1;
     };
-
 
     window = glfwCreateWindow(800, 600, "Brick", NULL, NULL);
     if(window == NULL)
@@ -102,12 +99,15 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
     int width, height, nrChannels;
-    unsigned char *data = stbi_load("contain.jpg", &width, &height, &nrChannels, 0);
+    unsigned char *data = stbi_load("cat.jpg", &width, &height, &nrChannels, 0);
 
     if(data)
     {
-        glTexImage2d(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else
@@ -115,15 +115,6 @@ int main(void)
         printf("Failed to load texture");
     };
     stbi_image_free(data);
-
-    float texCord[] =
-    {
-        0.0f, 0.0f,
-        1.0f, 0.0f,
-        0.5f, 1.0f
-    };
-    float borderColor[] = {1.0f, 1.0f, 0.0f, 1.0f};
-    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     //
 
     while(!glfwWindowShouldClose(window))
