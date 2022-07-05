@@ -9,11 +9,11 @@ struct Shader
     GLuint vertexID;
     GLuint fragmentID;
     GLuint program;
+
 } typedef Shader;
 
 Shader createShader(const char* vertexPath, const char* fragPath);
 void destroyShader();
-void bindShader();
 void useShader();
 
 #endif

@@ -72,7 +72,7 @@ void destroyShader(Shader shaderToDestroy)
     glDeleteShader(shaderToDestroy.fragmentID);
 };
 
-void bindShader(Shader shaderToBind)
+void useShader(Shader shaderToUse)
 {
-
+    glUseProgram(shaderToUse.program);
 };
