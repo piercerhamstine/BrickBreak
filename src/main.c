@@ -7,6 +7,7 @@
 
 #include "include/stb/stb_image.h"
 #include "include/shader.h"
+#include "include/vbo.h"
 
 void error_callback(int error, const char* desc);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -62,16 +63,16 @@ int main(void)
         1,2,3
     };
 
+
+    VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
     unsigned int EBO;
-    unsigned int VBO, VAO;
+    unsigned int VAO;
     glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
     glBindVertexArray(VAO);
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(verts), verts, GL_STATIC_DRAW);
+    bufferVBO(vbo, &verts);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
@@ -86,7 +87,7 @@ int main(void)
     glEnableVertexAttribArray(2);
 
     // Unbind VBO buffer
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    unbindVBO(vbo);
     // Unbind VAO buffer
     glBindVertexArray(0);
     //

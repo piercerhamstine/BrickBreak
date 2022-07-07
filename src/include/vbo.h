@@ -12,9 +12,10 @@ struct VBO
     bool isStatic;
 } typedef VBO;
 
-VBO createVBO(GLsizei size, GLuint buffer);
+VBO createVBO(GLint bufferType, bool isStatic);
 void destroyVBO(VBO target);
 void bindVBO(VBO target);
-
+void unbindVBO(VBO target);
+void bufferVBO(VBO target, void* data);
 
 #endif
