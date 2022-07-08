@@ -28,10 +28,8 @@ void bindVBO(VBO target)
     glBindBuffer(target.bufferType, target.buffer);
 };
 
-void bufferVBO(VBO target, void* data)
+void bufferVBO(VBO target, void* data, size_t offset, size_t count)
 {
-    printf("data: ");
-    printf(data);
     bindVBO(target);
-    glBufferData(target.bufferType, sizeof(data), data, target.isStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
+    glBufferData(target.bufferType, count-offset, data, target.isStatic ? GL_STATIC_DRAW : GL_DYNAMIC_DRAW);
 };

@@ -16,6 +16,6 @@ VBO createVBO(GLint bufferType, bool isStatic);
 void destroyVBO(VBO target);
 void bindVBO(VBO target);
 void unbindVBO(VBO target);
-void bufferVBO(VBO target, void* data);
+void bufferVBO(VBO target, void* data, size_t offset, size_t count);
 
 #endif

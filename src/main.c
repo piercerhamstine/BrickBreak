@@ -57,12 +57,17 @@ int main(void)
        -0.5f, 0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f
     };
 
+    size_t f = 32*sizeof(float);
+
+    //printf(f);
+   // printf(" ");
+    //printf(sizeof(verts));
+
     unsigned int indices[]=
     {
         0,1,3,
         1,2,3
     };
-
 
     VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
     unsigned int EBO;
@@ -72,7 +77,8 @@ int main(void)
 
     glBindVertexArray(VAO);
 
-    bufferVBO(vbo, &verts);
+
+    bufferVBO(vbo, verts, 0, 32*sizeof(float));
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
