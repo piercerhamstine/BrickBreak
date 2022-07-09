@@ -1,7 +1,5 @@
 #include "vbo.h"
 
-#include "stdio.h"
-
 VBO createVBO(GLint bufferType, bool isStatic)
 {
     VBO target;
