@@ -10,6 +10,7 @@ VAO createVAO()
 
 void bindVAO(VAO target)
 {
+    glBindVertexArray(target.attribHandle);
 };
 
 void destroyVAO()
