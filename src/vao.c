@@ -20,5 +20,6 @@ void destroyVAO()
 
 void enableAttrib(GLuint attribNdx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid* offset)
 {
-
+    glVertexAttribPointer(attribNdx, size, type, normalized, stride, offset);
+    glEnableVertexAttribArray(attribNdx);
 };
