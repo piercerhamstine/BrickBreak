@@ -11,5 +11,7 @@ struct VAO
 } typedef VAO;
 
 VAO createVAO();
-
+void bindVAO(VAO target);
+void destroyVAO();
+void enableAttrib(GLuint attribNdx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid* offset);
 #endif

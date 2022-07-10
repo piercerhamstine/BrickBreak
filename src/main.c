@@ -72,6 +72,8 @@ int main(void)
 
     VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
     VBO ebo = createVBO(GL_ELEMENT_ARRAY_BUFFER, true);
+    VAO vao = createVAO();
+    
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     
