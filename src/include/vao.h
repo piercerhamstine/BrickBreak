@@ -13,6 +13,7 @@ struct VAO
 
 VAO createVAO();
 void bindVAO(VAO target);
+void unbindVAO();
 void destroyVAO();
 void enableAttrib(VAO target, VBO buffer, GLuint attribNdx, GLint size, GLenum type, GLboolean normalized, GLsizei stride, GLvoid* offset);
 

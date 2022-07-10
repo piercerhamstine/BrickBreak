@@ -139,7 +139,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         useShader(shader);
-        glBindVertexArray(VAO);
+        bindVAO(vao);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         glfwSwapBuffers(window);

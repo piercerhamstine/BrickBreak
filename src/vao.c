@@ -13,6 +13,11 @@ void bindVAO(VAO target)
     glBindVertexArray(target.attribHandle);
 };
 
+void unbindVAO()
+{
+    glBindVertexArray(0);
+};
+
 void destroyVAO()
 {
 
