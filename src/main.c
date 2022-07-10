@@ -72,28 +72,34 @@ int main(void)
 
     VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
     VBO ebo = createVBO(GL_ELEMENT_ARRAY_BUFFER, true);
+
     VAO vao = createVAO();
-    
-    unsigned int VAO;
-    glGenVertexArrays(1, &VAO);
-    
-    glBindVertexArray(VAO);
+    //unsigned int VAO;
+    //glGenVertexArrays(1, &VAO);
+
+    bindVAO(vao);   
+    //glBindVertexArray(VAO);
 
     bufferVBO(vbo, verts, 0, 32*sizeof(float));
     bufferVBO(ebo, indices, 0, 6*sizeof(unsigned int));
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
+    enableAttrib(vao, vbo, 0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
+    //glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
-    glEnableVertexAttribArray(1);
+    enableAttrib(vao, vbo, 1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
+    //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
+    //glEnableVertexAttribArray(1);
 
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
-    glEnableVertexAttribArray(2);
+    enableAttrib(vao, vbo, 2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
+    //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
+    //glEnableVertexAttribArray(2);
 
     unbindVBO(vbo);
+
+    unbindVAO(vao);
     // Unbind VAO buffer
-    glBindVertexArray(0);
+    //glBindVertexArray(0);
     //
 
     // texture
