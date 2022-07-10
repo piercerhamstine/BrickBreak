@@ -8,6 +8,7 @@
 #include "include/stb/stb_image.h"
 #include "include/shader.h"
 #include "include/vbo.h"
+#include "include/vao.h"
 
 void error_callback(int error, const char* desc);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);

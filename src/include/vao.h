@@ -7,7 +7,9 @@
 
 struct VAO
 {
+    GLuint attribHandle;
+} typedef VAO;
 
-};
+VAO createVAO();
 
 #endif
