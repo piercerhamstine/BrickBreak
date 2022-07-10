@@ -3,7 +3,7 @@
 VAO createVAO()
 {
     VAO newVAO;
-    glBindVertexArray(1, &newVAO.attribHandle);
+    glGenVertexArrays(1, &newVAO.attribHandle);
 
     return newVAO;
 };
