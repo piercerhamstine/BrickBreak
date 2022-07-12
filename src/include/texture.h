@@ -12,5 +12,5 @@ struct Texture
 } typedef Texture;
 
 Texture createTexture();
-
+void bindTexture(Texture target);
 #endif
