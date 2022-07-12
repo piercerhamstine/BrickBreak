@@ -13,4 +13,5 @@ struct Texture
 
 Texture createTexture();
 void bindTexture(Texture target);
+void unbindTexture();
 #endif

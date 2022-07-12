@@ -12,3 +12,8 @@ void bindTexture(Texture target)
 {
     glBindTexture(GL_TEXTURE_2D, target.id);
 };
+
+void unbindTexture()
+{
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
