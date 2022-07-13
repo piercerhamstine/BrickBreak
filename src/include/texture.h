@@ -14,4 +14,8 @@ struct Texture
 Texture createTexture();
 void bindTexture(Texture target);
 void unbindTexture();
+
+// Loads texture from given file.
+void loadTexture(const char* path);
+
 #endif

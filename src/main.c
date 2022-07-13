@@ -9,6 +9,7 @@
 #include "include/shader.h"
 #include "include/vbo.h"
 #include "include/vao.h"
+#include "include/texture.h"
 
 void error_callback(int error, const char* desc);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -58,12 +59,6 @@ int main(void)
        -0.5f, 0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f
     };
 
-    size_t f = 32*sizeof(float);
-
-    //printf(f);
-   // printf(" ");
-    //printf(sizeof(verts));
-
     unsigned int indices[]=
     {
         0,1,3,
@@ -74,62 +69,34 @@ int main(void)
     VBO ebo = createVBO(GL_ELEMENT_ARRAY_BUFFER, true);
 
     VAO vao = createVAO();
-    //unsigned int VAO;
-    //glGenVertexArrays(1, &VAO);
 
     bindVAO(vao);   
-    //glBindVertexArray(VAO);
 
     bufferVBO(vbo, verts, 0, 32*sizeof(float));
     bufferVBO(ebo, indices, 0, 6*sizeof(unsigned int));
 
     enableAttrib(vao, vbo, 0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
-    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
-    //glEnableVertexAttribArray(0);
 
     enableAttrib(vao, vbo, 1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
-    //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
-    //glEnableVertexAttribArray(1);
 
     enableAttrib(vao, vbo, 2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
-    //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
-    //glEnableVertexAttribArray(2);
 
     unbindVBO(vbo);
-
-    unbindVAO(vao);
     // Unbind VAO buffer
-    //glBindVertexArray(0);
-    //
+    unbindVAO(vao);
 
     // texture
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture); // all upcoming GL_TEXTURE_2D operations now have effect on this texture object
-
+    Texture textr = createTexture();
+    bindTexture(textr);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(1);
-
-    unsigned char *data = stbi_load("cat.jpg", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        printf("Failed to load texture");
-    }
-    stbi_image_free(data);
-
+    loadTexture("cat.jpg");
     useShader(shader);
     glUniform1i(glGetUniformLocation(shader.program, "texture"), 0);
+    unbindTexture(textr);
     
     while(!glfwWindowShouldClose(window))
     {
