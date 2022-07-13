@@ -15,10 +15,6 @@ void bindTexture(Texture target)
     glBindTexture(GL_TEXTURE_2D, target.id);
 };
 
-void unbindTexture()
-{
-};
-
 void loadTexture(const char* path)
 {
     int width, height, nrChannels;

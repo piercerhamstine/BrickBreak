@@ -96,7 +96,6 @@ int main(void)
     loadTexture("cat.jpg");
     useShader(shader);
     glUniform1i(glGetUniformLocation(shader.program, "texture"), 0);
-    unbindTexture(textr);
     
     while(!glfwWindowShouldClose(window))
     {
