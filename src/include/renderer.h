@@ -3,5 +3,6 @@
 
 #include "sprite.h"
 
+void DrawSprite(Sprite sprite);
 
 #endif
