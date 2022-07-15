@@ -11,6 +11,9 @@ struct Sprite
     VAO vao;
     VBO vbo;
     Texture texture;
+    Shader shader;
 } typedef Sprite;
+
+void initSpriteData();
 
 #endif
