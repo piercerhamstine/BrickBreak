@@ -4,6 +4,7 @@
 #include "vao.h"
 #include "vbo.h"
 #include "texture.h"
+#include "shader.h"
 
 struct Sprite
 {
