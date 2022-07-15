@@ -7,7 +7,9 @@
 
 struct Sprite
 {
-
+    VAO vao;
+    VBO vbo;
+    Texture texture;
 } typedef Sprite;
 
 #endif
