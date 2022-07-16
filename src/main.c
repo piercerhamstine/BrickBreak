@@ -11,6 +11,9 @@
 #include "include/vao.h"
 #include "include/texture.h"
 
+#include "include/renderer.h"
+#include "include/sprite.h"
+
 void error_callback(int error, const char* desc);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
