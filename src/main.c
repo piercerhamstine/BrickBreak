@@ -52,6 +52,10 @@ int main(void)
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
     
+    // Sprite
+    Sprite sprite;
+    //
+
     //VBO+VAO
     float verts[]=
     {

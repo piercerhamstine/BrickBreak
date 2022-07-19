@@ -1,5 +1,10 @@
 #include "sprite.h"
 
+void setShader(Sprite target, Shader shader)
+{
+    target.shader = shader;
+}
+
 void initSprite(Sprite sprite)
 {
     float verts[] = 
