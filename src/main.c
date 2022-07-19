@@ -51,11 +51,8 @@ int main(void)
     // Shader
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
-    
-    // Sprite
-    Sprite sprite;
-    //
 
+/*
     //VBO+VAO
     float verts[]=
     {
@@ -91,6 +88,39 @@ int main(void)
     unbindVBO(vbo);
     // Unbind VAO buffer
     unbindVAO(vao);
+*/
+
+    //VBO+VAO
+    float verts[] = 
+    {
+        0.0f, 0.5f,     0.0f, 1.0f,
+        0.5f, 0.0f,     1.0f, 0.0f,
+        0.0f, 0.0f,     0.0f, 0.0f,
+
+        0.0f, 0.5f,     0.0f, 1.0f,
+        0.5f, 0.5f,     1.0f, 1.0f,
+        0.5f, 0.0f,     1.0f, 0.0f
+    };
+
+    VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
+    VAO vao = createVAO();
+
+    bindVAO(vao);   
+
+    bufferVBO(vbo, verts, 0, 24*sizeof(float));
+
+    enableAttrib(vao, vbo, 0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
+
+    unbindVBO(vbo);
+    // Unbind VAO buffer
+    unbindVAO(vao);
+
+
+/*
+    Sprite sprite;
+    initSprite(sprite);
+    setShader(sprite, shader);
+*/
 
     // texture
     Texture textr = createTexture();
@@ -103,7 +133,10 @@ int main(void)
     loadTexture("cat.jpg");
     useShader(shader);
     glUniform1i(glGetUniformLocation(shader.program, "texture"), 0);
-    
+    //
+
+    //setTexture(sprite, textr);
+
     while(!glfwWindowShouldClose(window))
     {
         processInput(window);
@@ -111,9 +144,11 @@ int main(void)
         glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        //drawSprite(sprite);
+
         useShader(shader);
         bindVAO(vao);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

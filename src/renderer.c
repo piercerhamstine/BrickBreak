@@ -3,12 +3,8 @@
 void drawSprite(Sprite sprite)
 {
     useShader(sprite.shader);
-    
     bindTexture(sprite.texture);
-
     bindVAO(sprite.vao);
-
-    // Draw here
-
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     unbindVAO(sprite.vao);
 };
