@@ -2,17 +2,17 @@
 
 #include <stdio.h>
 
-void setShader(Sprite target, const Shader shader)
+void setShader(Sprite* target, const Shader* shader)
 {
-    target.shader = shader;
+    target->shader = *shader;
 }
 
-void setTexture(Sprite target, const Texture texture)
+void setTexture(Sprite* target, const Texture* texture)
 {
-    target.texture = texture;
+    target->texture = *texture;
 }
 
-void initSprite(Sprite sprite)
+Sprite initSprite()
 {
     //VBO+VAO
     float verts[] = 
@@ -26,16 +26,19 @@ void initSprite(Sprite sprite)
         0.5f, 0.0f,     1.0f, 0.0f
     };
 
-    sprite.vbo = createVBO(GL_ARRAY_BUFFER, true);
-    sprite.vao = createVAO();
+    Sprite newSprite;
+    newSprite.vbo = createVBO(GL_ARRAY_BUFFER, true);
+    newSprite.vao = createVAO();
 
-    bindVAO(sprite.vao);   
+    bindVAO(newSprite.vao);   
 
-    bufferVBO(sprite.vbo, verts, 0, 24*sizeof(float));
+    bufferVBO(newSprite.vbo, verts, 0, 24*sizeof(float));
 
-    enableAttrib(sprite.vao, sprite.vbo, 0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
+    enableAttrib(newSprite.vao, newSprite.vbo, 0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
 
-    unbindVBO(sprite.vbo);
+    unbindVBO(newSprite.vbo);
     // Unbind VAO buffer
-    unbindVAO(sprite.vao);
+    unbindVAO(newSprite.vao);
+
+    return newSprite;
 };

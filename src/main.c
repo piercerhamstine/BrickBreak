@@ -52,75 +52,8 @@ int main(void)
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
 
-/*
-    //VBO+VAO
-    float verts[]=
-    {
-        //Pos               // Colors           // Texture Cords
-        0.5f, 0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,
-        0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   1.0f, 0.0f,
-       -0.5f, -0.5f, 0.0f,  0.0f, 0.0f, 1.0f,   0.0f, 0.0f,
-       -0.5f, 0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f
-    };
-
-    unsigned int indices[]=
-    {
-        0,1,3,
-        1,2,3
-    };
-
-    VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
-    VBO ebo = createVBO(GL_ELEMENT_ARRAY_BUFFER, true);
-
-    VAO vao = createVAO();
-
-    bindVAO(vao);   
-
-    bufferVBO(vbo, verts, 0, 32*sizeof(float));
-    bufferVBO(ebo, indices, 0, 6*sizeof(unsigned int));
-
-    enableAttrib(vao, vbo, 0, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)0);
-
-    enableAttrib(vao, vbo, 1, 3, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(3*sizeof(float)));
-
-    enableAttrib(vao, vbo, 2, 2, GL_FLOAT, GL_FALSE, 8*sizeof(float), (void*)(6*sizeof(float)));
-
-    unbindVBO(vbo);
-    // Unbind VAO buffer
-    unbindVAO(vao);
-*/
-
-    //VBO+VAO
-    float verts[] = 
-    {
-        0.0f, 0.5f,     0.0f, 1.0f,
-        0.5f, 0.0f,     1.0f, 0.0f,
-        0.0f, 0.0f,     0.0f, 0.0f,
-
-        0.0f, 0.5f,     0.0f, 1.0f,
-        0.5f, 0.5f,     1.0f, 1.0f,
-        0.5f, 0.0f,     1.0f, 0.0f
-    };
-
-    VBO vbo = createVBO(GL_ARRAY_BUFFER, true);
-    VAO vao = createVAO();
-
-    bindVAO(vao);   
-
-    bufferVBO(vbo, verts, 0, 24*sizeof(float));
-
-    enableAttrib(vao, vbo, 0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
-
-    unbindVBO(vbo);
-    // Unbind VAO buffer
-    unbindVAO(vao);
-
-
-/*
-    Sprite sprite;
-    initSprite(sprite);
-    setShader(sprite, shader);
-*/
+    Sprite sprite = initSprite();
+    setShader(&sprite, &shader);
 
     // texture
     Texture textr = createTexture();
@@ -131,11 +64,11 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     loadTexture("cat.jpg");
-    useShader(shader);
-    glUniform1i(glGetUniformLocation(shader.program, "texture"), 0);
+    useShader(sprite.shader);
+    glUniform1i(glGetUniformLocation(sprite.shader.program, "texture"), 0);
     //
 
-    //setTexture(sprite, textr);
+    setTexture(&sprite, &textr);
 
     while(!glfwWindowShouldClose(window))
     {
@@ -144,11 +77,7 @@ int main(void)
         glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //drawSprite(sprite);
-
-        useShader(shader);
-        bindVAO(vao);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        drawSprite(sprite);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

@@ -14,7 +14,7 @@ struct Sprite
     Shader shader;
 } typedef Sprite;
 
-void initSprite(Sprite sprite);
-void setShader(Sprite target, const Shader shader);
-void setTexture(Sprite target, const Texture texture);
+Sprite initSprite();
+void setShader(Sprite* target, const Shader* shader);
+void setTexture(Sprite* target, const Texture* texture);
 #endif
