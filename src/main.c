@@ -55,6 +55,7 @@ int main(void)
     Sprite sprite = initSprite();
     setShader(&sprite, &shader);
 
+    // Move this into Sprite.h
     // texture
     Texture textr = createTexture();
     bindTexture(textr);
