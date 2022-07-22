@@ -5,6 +5,8 @@
 #include "glad/gl.h"
 #include <GLFW/glfw3.h>
 
+#include "include/cglm/cglm.h"
+
 #include "include/stb/stb_image.h"
 #include "include/shader.h"
 #include "include/vbo.h"
@@ -48,6 +50,9 @@ int main(void)
         return -1;
     };
 
+    //Matrix
+    //
+    
     // Shader
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
