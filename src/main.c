@@ -50,9 +50,8 @@ int main(void)
         return -1;
     };
 
-    //Matrix
-    //
-    
+
+
     // Shader
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
@@ -75,6 +74,16 @@ int main(void)
     //
 
     setTexture(&sprite, &textr);
+
+    // transforms
+    mat4 translation = GLM_MAT4_IDENTITY_INIT;
+    glm_rotate(translation, glm_rad(70.0f), (vec3){0.0f, 0.0f, 1.0f});
+    glm_mat4_scale(translation, 0.5f);
+
+    GLuint trans = glGetUniformLocation(sprite.shader.program, "transform");
+    glUniformMatrix4fv(trans, 1, GL_FALSE, translation[0]);
+    //
+
 
     while(!glfwWindowShouldClose(window))
     {
