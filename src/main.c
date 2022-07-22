@@ -4,9 +4,6 @@
 
 #include "glad/gl.h"
 #include <GLFW/glfw3.h>
-#include "include/glm/glm.hpp"
-#include "include/glm/gtc/matrix_transform.hpp"
-#include "include/glm/gtc/type_ptr.hpp"
 
 #include "include/stb/stb_image.h"
 #include "include/shader.h"
