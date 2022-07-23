@@ -76,6 +76,10 @@ int main(void)
     setTexture(&sprite, &textr);
 
     // transforms
+    mat4 projection = GLM_MAT4_IDENTITY_INIT;
+    GLuint proj = glGetUniformLocation(sprite.shader.program, "projection");
+    glUniformMatrix4fv(proj, 1, GL_FALSE, projection[0]);
+
     mat4 translation = GLM_MAT4_IDENTITY_INIT;
     glm_rotate(translation, glm_rad(70.0f), (vec3){0.0f, 0.0f, 1.0f});
     glm_mat4_scale(translation, 0.5f);
