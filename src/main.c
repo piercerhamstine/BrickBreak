@@ -75,24 +75,35 @@ int main(void)
 
     // Camera
     vec3 camPos = {0.0f, 0.0f, 1.0f};
+    vec3 camTarget = {0.0f, 0.0f, 0.0f};
+
+    vec3 lookAt;
+    glm_vec3_sub(camPos, camTarget, lookAt);
+    glm_vec3_normalize(lookAt);
+    
+    vec3 up = {0.0f, 1.0f, 0.0f};
+    vec3 camRight;
+    glm_vec3_cross(up, lookAt, camRight);
+    vec3 camUp;
+    glm_vec3_cross(up, camRight, camUp);
+    //
 
     // transforms
     mat4 model = GLM_MAT4_IDENTITY_INIT;
     glm_translate(model, (vec3){0.0f, 0.0f, 1.0f});
 
-
-    mat4 view = GLM_MAT4_IDENTITY_INIT;
-    glm_translate(view, (vec3){0.0f, 0.0f, 0.0f});
+    mat4 view;
+    glm_lookat((vec3){0.0f, 0.0f, -1.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 1.0f, 0.0}, view);
 
     mat4 projection = GLM_MAT4_IDENTITY_INIT;
-    glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 1.0f, projection);
+    glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -4.0f, 4.0f, projection);
 
     GLuint modelLoc, viewLoc, projectionLoc;
 
     // Model
     modelLoc = glGetUniformLocation(sprite.shader.program, "model");
     glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model[0]);
-
+    
     // View
     viewLoc = glGetUniformLocation(sprite.shader.program, "view");
     glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view[0]);
