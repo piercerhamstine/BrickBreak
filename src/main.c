@@ -50,8 +50,6 @@ int main(void)
         return -1;
     };
 
-
-
     // Shader
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
@@ -76,7 +74,33 @@ int main(void)
     setTexture(&sprite, &textr);
 
     // transforms
+    mat4 model = GLM_MAT4_IDENTITY_INIT;
+    glm_translate(model, (vec3){0.0f, 0.0f, 1.0f});
+
+
+    mat4 view = GLM_MAT4_IDENTITY_INIT;
+    glm_translate(view, (vec3){0.0f, 0.0f, -1.0f});
+
     mat4 projection = GLM_MAT4_IDENTITY_INIT;
+    glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 1.0f, projection);
+
+    GLuint modelLoc, viewLoc, projectionLoc;
+
+    // Model
+    modelLoc = glGetUniformLocation(sprite.shader.program, "model");
+    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model[0]);
+
+    // View
+    viewLoc = glGetUniformLocation(sprite.shader.program, "view");
+    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view[0]);
+
+    // Projection
+    projectionLoc = glGetUniformLocation(sprite.shader.program, "projection");
+    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projection[0]);
+
+    /*
+    mat4 projection = GLM_MAT4_IDENTITY_INIT;
+
     GLuint proj = glGetUniformLocation(sprite.shader.program, "projection");
     glUniformMatrix4fv(proj, 1, GL_FALSE, projection[0]);
 
@@ -86,6 +110,7 @@ int main(void)
 
     GLuint trans = glGetUniformLocation(sprite.shader.program, "transform");
     glUniformMatrix4fv(trans, 1, GL_FALSE, translation[0]);
+    */
     //
 
 
