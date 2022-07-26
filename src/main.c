@@ -73,13 +73,16 @@ int main(void)
 
     setTexture(&sprite, &textr);
 
+    // Camera
+    vec3 camPos = {0.0f, 0.0f, 1.0f};
+
     // transforms
     mat4 model = GLM_MAT4_IDENTITY_INIT;
     glm_translate(model, (vec3){0.0f, 0.0f, 1.0f});
 
 
     mat4 view = GLM_MAT4_IDENTITY_INIT;
-    glm_translate(view, (vec3){0.0f, 0.0f, -1.0f});
+    glm_translate(view, (vec3){0.0f, 0.0f, 0.0f});
 
     mat4 projection = GLM_MAT4_IDENTITY_INIT;
     glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -1.0f, 1.0f, projection);
