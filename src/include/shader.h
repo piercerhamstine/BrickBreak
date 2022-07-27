@@ -20,6 +20,4 @@ void useShader(Shader shader);
 void SetUniformMat4(Shader shader, const char* uniformName, GLfloat* mat);
 #pragma endregion
 
-void SetUniformMat4
-
 #endif

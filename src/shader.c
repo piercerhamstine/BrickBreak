@@ -78,3 +78,10 @@ void useShader(Shader shaderToUse)
 {
     glUseProgram(shaderToUse.program);
 };
+
+#pragma region Uniform setters
+void SetUniformMat4(Shader shader, const char* uniformName, GLfloat* mat)
+{
+    glUniformMatrix4fv(glGetUniformLocation(shader.program, uniformName), 1, GL_FALSE, mat);
+};
+#pragma endregion
