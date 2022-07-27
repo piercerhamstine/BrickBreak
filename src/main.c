@@ -16,6 +16,15 @@
 #include "include/renderer.h"
 #include "include/sprite.h"
 
+// Camera
+vec3 camPos = {0.0f, 0.0f, 3.0f};
+vec3 camFront = {0.0f, 0.0f, -1.0f};
+vec3 camUp = {0.0f, 1.0f, 0.0f};
+float camSpeed = 1.0f;
+
+float deltaTime;
+float lastFrame;
+
 void error_callback(int error, const char* desc);
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window);
@@ -70,54 +79,49 @@ int main(void)
     useShader(sprite.shader);
     glUniform1i(glGetUniformLocation(sprite.shader.program, "texture"), 0);
     //
-
     setTexture(&sprite, &textr);
 
-    // Camera
-    vec3 camPos = {0.0f, 0.0f, 1.0f};
-    vec3 camTarget = {0.0f, 0.0f, 0.0f};
-
-    vec3 lookAt;
-    glm_vec3_sub(camPos, camTarget, lookAt);
-    glm_vec3_normalize(lookAt);
-    
-    vec3 up = {0.0f, 1.0f, 0.0f};
-    vec3 camRight;
-    glm_vec3_cross(up, lookAt, camRight);
-    vec3 camUp;
-    glm_vec3_cross(up, camRight, camUp);
-    //
 
     // transforms
     mat4 model = GLM_MAT4_IDENTITY_INIT;
     glm_translate(model, (vec3){0.0f, 0.0f, 1.0f});
 
     mat4 view;
-    glm_lookat((vec3){0.0f, 0.0f, -1.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 1.0f, 0.0}, view);
+    //glm_lookat((vec3){0.0f, 0.0f, -1.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 1.0f, 0.0}, view);
 
     mat4 projection = GLM_MAT4_IDENTITY_INIT;
-    glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -4.0f, 4.0f, projection);
+    glm_ortho(-5.0f, 5.0f, -5.0f, 5.0f, -10.0f, 10.0f, projection);
 
     GLuint modelLoc, viewLoc, projectionLoc;
 
     // Model
-    modelLoc = glGetUniformLocation(sprite.shader.program, "model");
-    glUniformMatrix4fv(modelLoc, 1, GL_FALSE, model[0]);
-    
+    SetUniformMat4(sprite.shader, "model", model[0]);
     // View
-    viewLoc = glGetUniformLocation(sprite.shader.program, "view");
-    glUniformMatrix4fv(viewLoc, 1, GL_FALSE, view[0]);
-
+    //SetUniformMat4(sprite.shader, "view", view[0]);
     // Projection
-    projectionLoc = glGetUniformLocation(sprite.shader.program, "projection");
-    glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, projection[0]);
+    SetUniformMat4(sprite.shader, "projection", projection[0]);
 
+    vec3 lookAt;
+
+    float x = 0;
     while(!glfwWindowShouldClose(window))
     {
+        // delta time
+        float currFrame = (float)glfwGetTime();
+        deltaTime = currFrame - lastFrame;
+        lastFrame = currFrame;
+        //
+
         processInput(window);
 
         glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+        // Camera
+        glm_vec3_add(camPos, camFront, lookAt);
+        glm_lookat(camPos, lookAt, camUp, view);
+        SetUniformMat4(sprite.shader, "view", view[0]);
+        //
 
         drawSprite(sprite);
 
@@ -136,6 +140,24 @@ void processInput(GLFWwindow* window)
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     {
         glfwSetWindowShouldClose(window, 1);
+    };
+
+    if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    {
+        vec3 crossNormd;
+        glm_cross(camFront, camUp, crossNormd);
+        glm_normalize(crossNormd);
+        glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
+        glm_vec3_add(camPos, crossNormd, camPos);
+    };
+
+    if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    {
+        vec3 crossNormd;
+        glm_cross(camFront, camUp, crossNormd);
+        glm_normalize(crossNormd);
+        glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
+        glm_vec3_sub(camPos, crossNormd, camPos);
     };
 };
 
