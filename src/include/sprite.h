@@ -1,6 +1,7 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 
+#include "cglm/cglm.h"
 #include "vao.h"
 #include "vbo.h"
 #include "texture.h"
@@ -8,6 +9,10 @@
 
 struct Sprite
 {
+    vec3 position;
+    vec3 rotation;
+    vec3 scale;
+
     VAO vao;
     VBO vbo;
     Texture texture;
