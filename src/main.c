@@ -22,6 +22,8 @@ vec3 camFront = {0.0f, 0.0f, -1.0f};
 vec3 camUp = {0.0f, 1.0f, 0.0f};
 float camSpeed = 1.0f;
 
+float moveX = 0;
+
 float deltaTime;
 float lastFrame;
 
@@ -87,17 +89,17 @@ int main(void)
     glm_translate(model, (vec3){0.0f, 0.0f, 1.0f});
 
     mat4 view;
-    //glm_lookat((vec3){0.0f, 0.0f, -1.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 1.0f, 0.0}, view);
+    glm_lookat((vec3){0.0f, 0.0f, -1.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 1.0f, 0.0}, view);
 
     mat4 projection = GLM_MAT4_IDENTITY_INIT;
-    glm_ortho(-5.0f, 5.0f, -5.0f, 5.0f, -10.0f, 10.0f, projection);
+    glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -10.0f, 10.0f, projection);
 
     GLuint modelLoc, viewLoc, projectionLoc;
 
     // Model
     SetUniformMat4(sprite.shader, "model", model[0]);
     // View
-    //SetUniformMat4(sprite.shader, "view", view[0]);
+    SetUniformMat4(sprite.shader, "view", view[0]);
     // Projection
     SetUniformMat4(sprite.shader, "projection", projection[0]);
 
@@ -106,6 +108,7 @@ int main(void)
     float x = 0;
     while(!glfwWindowShouldClose(window))
     {
+        moveX = 0;
         // delta time
         float currFrame = (float)glfwGetTime();
         deltaTime = currFrame - lastFrame;
@@ -118,10 +121,16 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         // Camera
-        glm_vec3_add(camPos, camFront, lookAt);
-        glm_lookat(camPos, lookAt, camUp, view);
-        SetUniformMat4(sprite.shader, "view", view[0]);
+        //glm_vec3_add(camPos, camFront, lookAt);
+        //glm_lookat(camPos, lookAt, camUp, view);
+        //SetUniformMat4(sprite.shader, "view", view[0]);
         //
+
+        // Sprite movement  
+        glm_translate(model, (vec3){moveX, 0.0f, 0.0f});
+        SetUniformMat4(sprite.shader, "model", model[0]);
+        //
+
 
         drawSprite(sprite);
 
@@ -149,6 +158,8 @@ void processInput(GLFWwindow* window)
         glm_normalize(crossNormd);
         glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
         glm_vec3_add(camPos, crossNormd, camPos);
+
+        moveX = 0.5f * deltaTime;
     };
 
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
@@ -158,7 +169,9 @@ void processInput(GLFWwindow* window)
         glm_normalize(crossNormd);
         glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
         glm_vec3_sub(camPos, crossNormd, camPos);
-    };
+
+        moveX = -0.5f * deltaTime;
+    }
 };
 
 void error_callback(int error, const char* desc)
