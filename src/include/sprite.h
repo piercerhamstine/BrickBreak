@@ -22,4 +22,9 @@ struct Sprite
 Sprite initSprite();
 void setShader(Sprite* target, const Shader* shader);
 void setTexture(Sprite* target, const Texture* texture);
+
+#pragma region Transformations
+void translate(Sprite targetSprite, vec3 targetPos);
+#pragma endregion
+
 #endif
