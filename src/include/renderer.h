@@ -3,6 +3,13 @@
 
 #include "sprite.h"
 
-void drawSprite(Sprite sprite);
+struct SpriteRenderer
+{
+    Shader shader;
+} typedef SpriteRenderer;
+
+void setShader(SpriteRenderer* target, const Shader* shader);
+
+void drawSprite(SpriteRenderer* renderer, Sprite* sprite);
 
 #endif

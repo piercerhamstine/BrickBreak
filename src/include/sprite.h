@@ -9,6 +9,7 @@
 
 struct Sprite
 {
+    // Will probably move this to it's own file.
     vec3 position;
     vec3 rotation;
     vec3 scale;
@@ -16,11 +17,9 @@ struct Sprite
     VAO vao;
     VBO vbo;
     Texture texture;
-    Shader shader;
 } typedef Sprite;
 
 Sprite initSprite();
-void setShader(Sprite* target, const Shader* shader);
 void setTexture(Sprite* target, const Texture* texture);
 
 #pragma region Transformations

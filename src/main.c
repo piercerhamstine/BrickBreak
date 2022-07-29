@@ -65,8 +65,10 @@ int main(void)
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
     //
 
+    SpriteRenderer renderer;
+    setShader(&renderer, &shader);
+
     Sprite sprite = initSprite();
-    setShader(&sprite, &shader);
 
     // Move this into Sprite.h
     // texture
@@ -78,8 +80,8 @@ int main(void)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     loadTexture("cat.jpg");
-    useShader(sprite.shader);
-    glUniform1i(glGetUniformLocation(sprite.shader.program, "texture"), 0);
+    useShader(renderer.shader);
+    glUniform1i(glGetUniformLocation(renderer.shader.program, "texture"), 0);
     //
     setTexture(&sprite, &textr);
 
@@ -97,11 +99,11 @@ int main(void)
     GLuint modelLoc, viewLoc, projectionLoc;
 
     // Model
-    SetUniformMat4(sprite.shader, "model", model[0]);
+    SetUniformMat4(renderer.shader, "model", model[0]);
     // View
-    SetUniformMat4(sprite.shader, "view", view[0]);
+    SetUniformMat4(renderer.shader, "view", view[0]);
     // Projection
-    SetUniformMat4(sprite.shader, "projection", projection[0]);
+    SetUniformMat4(renderer.shader, "projection", projection[0]);
 
     vec3 lookAt;
 
@@ -128,11 +130,10 @@ int main(void)
 
         // Sprite movement  
         glm_translate(model, (vec3){moveX, 0.0f, 0.0f});
-        SetUniformMat4(sprite.shader, "model", model[0]);
+        SetUniformMat4(renderer.shader, "model", model[0]);
         //
 
-
-        drawSprite(sprite);
+        drawSprite(&renderer, &sprite);
 
         glfwSwapBuffers(window);
         glfwPollEvents();

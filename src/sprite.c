@@ -2,15 +2,17 @@
 
 #include <stdio.h>
 
-void setShader(Sprite* target, const Shader* shader)
-{
-    target->shader = *shader;
-}
+
 
 void setTexture(Sprite* target, const Texture* texture)
 {
     target->texture = *texture;
 }
+
+void translate(Sprite targetSprite, vec3 targetPos)
+{
+
+};
 
 Sprite initSprite()
 {
