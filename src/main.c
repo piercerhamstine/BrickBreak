@@ -110,7 +110,6 @@ int main(void)
     float x = 0;
     while(!glfwWindowShouldClose(window))
     {
-        moveX = 0;
         // delta time
         float currFrame = (float)glfwGetTime();
         deltaTime = currFrame - lastFrame;
@@ -129,8 +128,8 @@ int main(void)
         //
 
         // Sprite movement  
-        glm_translate(model, (vec3){moveX, 0.0f, 0.0f});
-        SetUniformMat4(renderer.shader, "model", model[0]);
+        //glm_translate(model, (vec3){moveX, 0.0f, 0.0f});
+        //SetUniformMat4(renderer.shader, "model", model[0]);
         //
 
         drawSprite(&renderer, &sprite);

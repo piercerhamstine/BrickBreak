@@ -11,7 +11,6 @@ void setTexture(Sprite* target, const Texture* texture)
 
 void translate(Sprite targetSprite, vec3 targetPos)
 {
-
 };
 
 Sprite initSprite()
