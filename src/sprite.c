@@ -11,6 +11,7 @@ void setTexture(Sprite* target, const Texture* texture)
 
 void translate(Sprite targetSprite, vec3 targetPos)
 {
+    glm_vec3_add(targetSprite.position, targetPos, targetSprite.position);
 };
 
 Sprite initSprite()

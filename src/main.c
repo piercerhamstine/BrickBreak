@@ -158,8 +158,6 @@ void processInput(GLFWwindow* window)
         glm_normalize(crossNormd);
         glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
         glm_vec3_add(camPos, crossNormd, camPos);
-
-        moveX = 0.5f * deltaTime;
     };
 
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
@@ -169,8 +167,6 @@ void processInput(GLFWwindow* window)
         glm_normalize(crossNormd);
         glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
         glm_vec3_sub(camPos, crossNormd, camPos);
-
-        moveX = -0.5f * deltaTime;
     }
 };
 
