@@ -9,9 +9,9 @@ void setTexture(Sprite* target, const Texture* texture)
     target->texture = *texture;
 }
 
-void translate(Sprite targetSprite, vec3 targetPos)
+void translate(Sprite* targetSprite, vec3 targetPos)
 {
-    glm_vec3_add(targetSprite.position, targetPos, targetSprite.position);
+    glm_vec3_add(targetSprite->position, targetPos, targetSprite->position);
 };
 
 Sprite initSprite()
