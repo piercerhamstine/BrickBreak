@@ -69,16 +69,12 @@ int main(void)
     setShader(&renderer, &shader);
 
     Sprite sprite = initSprite();
+    Sprite sprite2 = initSprite();
 
     // Move this into Sprite.h
     // texture
     Texture textr = createTexture();
     bindTexture(textr);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	// set texture wrapping to GL_REPEAT (default wrapping method)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     loadTexture("cat.jpg");
     useShader(renderer.shader);
     glUniform1i(glGetUniformLocation(renderer.shader.program, "texture"), 0);
@@ -135,9 +131,9 @@ int main(void)
         //
 
         translate(&sprite, (vec3){moveX, 0.0f, 0.0f});
-
         drawSprite(&renderer, &sprite);
-
+        drawSprite(&renderer, &sprite2);
+        
         glfwSwapBuffers(window);
         glfwPollEvents();
     };
