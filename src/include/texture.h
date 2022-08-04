@@ -16,5 +16,4 @@ void bindTexture(Texture target);
 
 // Loads texture from given file.
 void loadTexture(const char* path);
-void setTexParameter();
 #endif
