@@ -13,6 +13,7 @@
 #include "include/vao.h"
 #include "include/texture.h"
 
+#include "resourceloader.h"
 #include "include/renderer.h"
 #include "include/sprite.h"
 
@@ -73,9 +74,9 @@ int main(void)
 
     // Move this into Sprite.h
     // texture
-    Texture textr = createTexture();
-    bindTexture(textr);
-    loadTexture("cat.jpg");
+    Texture textr = loadTextureFromFile("cat.jpg", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
+    //bindTexture(textr);
+    //loadTexture("cat.jpg");
     useShader(renderer.shader);
     glUniform1i(glGetUniformLocation(renderer.shader.program, "texture"), 0);
     //
