@@ -84,4 +84,9 @@ void SetUniformMat4(Shader shader, const char* uniformName, GLfloat* mat)
 {
     glUniformMatrix4fv(glGetUniformLocation(shader.program, uniformName), 1, GL_FALSE, mat);
 };
+
+void SetUniform1i(Shader shader, const char* uniformName, GLint value)
+{
+    glUniform1i(glGetUniformLocation(shader.program, uniformName), value);
+};
 #pragma endregion

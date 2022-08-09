@@ -78,7 +78,8 @@ int main(void)
     //bindTexture(textr);
     //loadTexture("cat.jpg");
     useShader(renderer.shader);
-    glUniform1i(glGetUniformLocation(renderer.shader.program, "texture"), 0);
+    //glUniform1i(glGetUniformLocation(renderer.shader.program, "texture"), 0);
+    SetUniform1i(renderer.shader, "texture", 0);
     //
     setTexture(&sprite, &textr);
 

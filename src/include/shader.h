@@ -18,6 +18,7 @@ void useShader(Shader shader);
 
 #pragma region Uniform Setters
 void SetUniformMat4(Shader shader, const char* uniformName, GLfloat* mat);
+void SetUniform1i(Shader shader, const char* uniformName, GLint value);
 #pragma endregion
 
 #endif
