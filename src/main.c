@@ -72,13 +72,9 @@ int main(void)
     Sprite sprite = initSprite();
     Sprite sprite2 = initSprite();
 
-    // Move this into Sprite.h
     // texture
     Texture textr = loadTextureFromFile("cat.jpg", GL_REPEAT, GL_REPEAT, GL_LINEAR, GL_LINEAR);
-    //bindTexture(textr);
-    //loadTexture("cat.jpg");
     useShader(renderer.shader);
-    //glUniform1i(glGetUniformLocation(renderer.shader.program, "texture"), 0);
     SetUniform1i(renderer.shader, "texture", 0);
     //
     setTexture(&sprite, &textr);
@@ -104,6 +100,8 @@ int main(void)
     SetUniformMat4(renderer.shader, "projection", projection[0]);
 
     vec3 lookAt;
+
+    //scale(&sprite, (vec3){1.0f, 1.0f, 1.0f});
 
     float x = 0;
     while(!glfwWindowShouldClose(window))

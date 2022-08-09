@@ -23,7 +23,10 @@ Sprite initSprite();
 void setTexture(Sprite* target, const Texture* texture);
 
 #pragma region Transformations
+void setPosition(Sprite* targetSprite, vec3 targetPos);
+
 void translate(Sprite* targetSprite, vec3 targetPos);
+void scale(Sprite* targetSprite, vec3 targetScale);
 #pragma endregion
 
 #endif

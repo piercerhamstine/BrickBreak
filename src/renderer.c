@@ -14,6 +14,7 @@ void drawSprite(SpriteRenderer* renderer, Sprite* sprite)
     // matrices stuff
     mat4 model = GLM_MAT4_IDENTITY_INIT;
     glm_translate(model, sprite->position);
+    glm_scale(model, sprite->scale);
     SetUniformMat4(renderer->shader, "model", model[0]);
     //
 
