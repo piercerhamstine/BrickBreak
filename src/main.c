@@ -17,6 +17,8 @@
 #include "include/renderer.h"
 #include "include/sprite.h"
 
+#include "game.h"
+
 // Camera
 vec3 camPos = {0.0f, 0.0f, 3.0f};
 vec3 camFront = {0.0f, 0.0f, -1.0f};
@@ -28,39 +30,9 @@ float moveX = 0;
 float deltaTime;
 float lastFrame;
 
-void error_callback(int error, const char* desc);
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void processInput(GLFWwindow* window);
-
 int main(void)
 {
-    GLFWwindow* window;
-    glfwSetErrorCallback(error_callback);
-
-    if(!glfwInit())
-    {
-        printf("Init failed.");
-        exit(EXIT_FAILURE);
-        return -1;
-    };
-
-    window = glfwCreateWindow(800, 600, "Brick", NULL, NULL);
-    if(window == NULL)
-    {
-        printf("Failed window.");
-        glfwTerminate();
-        exit(EXIT_FAILURE);
-        return -1;
-    };
-    
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
-    if(!gladLoadGL(glfwGetProcAddress))
-    {
-        printf("GLAD Failure.");
-        return -1;
-    };
+    initGame();
 
     // Shader
     Shader shader = createShader("vertexShader.vert", "fragShader.frag");
@@ -101,10 +73,8 @@ int main(void)
 
     vec3 lookAt;
 
-    //scale(&sprite, (vec3){1.0f, 1.0f, 1.0f});
-
     float x = 0;
-    while(!glfwWindowShouldClose(window))
+    while(!glfwWindowShouldClose(gameWindow))
     {
         // delta time
         float currFrame = (float)glfwGetTime();
@@ -114,7 +84,7 @@ int main(void)
 
         moveX = 0;
 
-        processInput(window);
+        processInput(gameWindow);
 
         glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -134,11 +104,11 @@ int main(void)
         drawSprite(&renderer, &sprite);
         drawSprite(&renderer, &sprite2);
         
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(gameWindow);
         glfwPollEvents();
     };
 
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(gameWindow);
     glfwTerminate();
     exit(EXIT_SUCCESS);
     return 0;
@@ -172,14 +142,4 @@ void processInput(GLFWwindow* window)
 
         moveX = -0.5f*deltaTime;
     }
-};
-
-void error_callback(int error, const char* desc)
-{
-    fprintf(stderr, "Error: %s\n", desc);
-};
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0,0,width,height);
 };
