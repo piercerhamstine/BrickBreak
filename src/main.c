@@ -27,9 +27,6 @@ float camSpeed = 1.0f;
 
 float moveX = 0;
 
-float deltaTime;
-float lastFrame;
-
 int main(void)
 {
     initGame();
@@ -76,12 +73,7 @@ int main(void)
     float x = 0;
     while(!glfwWindowShouldClose(gameWindow))
     {
-        // delta time
-        float currFrame = (float)glfwGetTime();
-        deltaTime = currFrame - lastFrame;
-        lastFrame = currFrame;
-        //
-
+        updateDeltaTime();
         moveX = 0;
 
         processInput(gameWindow);

@@ -1,5 +1,12 @@
 #include "game.h"
 
+void updateDeltaTime()
+{
+    float currFrameTime = glfwGetTime();
+    deltaTime = currFrameTime - lastFrameTime;
+    lastFrameTime = currFrameTime;
+};
+
 int initGame()
 {
     glfwSetErrorCallback(error_callback);

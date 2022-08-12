@@ -6,7 +6,6 @@
 struct GameObject
 {
     Sprite sprite;
-    
 } typedef GameObject;
 
 #endif

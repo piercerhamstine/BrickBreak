@@ -13,6 +13,9 @@
 #include "renderer.h"
 #include "gameobject.h"
 
+float currFrameTime;
+float lastFrameTime;
+
 int initGame();
 void cleanGame();
 
