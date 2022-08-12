@@ -95,11 +95,6 @@ int main(void)
         //SetUniformMat4(sprite.shader, "view", view[0]);
         //
 
-        // Sprite movement  
-        //glm_translate(model, (vec3){moveX, 0.0f, 0.0f});
-        //SetUniformMat4(renderer.shader, "model", model[0]);
-        //
-
         translate(&sprite, (vec3){moveX, 0.0f, 0.0f});
         drawSprite(&renderer, &sprite);
         drawSprite(&renderer, &sprite2);
