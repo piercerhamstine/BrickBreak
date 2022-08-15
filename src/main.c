@@ -50,25 +50,17 @@ int main(void)
 
 
     // transforms
-    mat4 model = GLM_MAT4_IDENTITY_INIT;
-    glm_translate(model, (vec3){0.0f, 0.0f, 1.0f});
-
     mat4 view;
     glm_lookat((vec3){0.0f, 0.0f, -1.0f}, (vec3){0.0f, 0.0f, 0.0f}, (vec3){0.0f, 1.0f, 0.0}, view);
-
     mat4 projection = GLM_MAT4_IDENTITY_INIT;
     glm_ortho(-2.0f, 2.0f, -2.0f, 2.0f, -10.0f, 10.0f, projection);
-
-    GLuint modelLoc, viewLoc, projectionLoc;
-
-    // Model
-    SetUniformMat4(renderer.shader, "model", model[0]);
     // View
     SetUniformMat4(renderer.shader, "view", view[0]);
     // Projection
     SetUniformMat4(renderer.shader, "projection", projection[0]);
 
-    vec3 lookAt;
+
+    setPosition(&sprite, (vec3){-2.0, 1.0, 0.0f});
 
     float x = 0;
     while(!glfwWindowShouldClose(gameWindow))
@@ -80,12 +72,6 @@ int main(void)
 
         glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        // Camera
-        //glm_vec3_add(camPos, camFront, lookAt);
-        //glm_lookat(camPos, lookAt, camUp, view);
-        //SetUniformMat4(sprite.shader, "view", view[0]);
-        //
 
         translate(&sprite, (vec3){moveX, 0.0f, 0.0f});
         drawSprite(&renderer, &sprite);
@@ -110,23 +96,11 @@ void processInput(GLFWwindow* window)
 
     if(glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
     {
-        vec3 crossNormd;
-        glm_cross(camFront, camUp, crossNormd);
-        glm_normalize(crossNormd);
-        glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
-        glm_vec3_add(camPos, crossNormd, camPos);
-        
         moveX = 0.5f*deltaTime;
     };
 
     if(glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     {
-        vec3 crossNormd;
-        glm_cross(camFront, camUp, crossNormd);
-        glm_normalize(crossNormd);
-        glm_vec3_scale(crossNormd, camSpeed*deltaTime, crossNormd);
-        glm_vec3_sub(camPos, crossNormd, camPos);
-
         moveX = -0.5f*deltaTime;
     }
 };
