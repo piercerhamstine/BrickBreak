@@ -6,14 +6,12 @@
 #include "vbo.h"
 #include "texture.h"
 #include "shader.h"
+#include "transform.h"
 
 struct Sprite
 {
-    // Will probably move this to it's own file.
-    vec3 position;
-    vec3 rotation;
-    vec3 scale;
-
+    Transform transform;
+    
     VAO vao;
     VBO vbo;
     Texture texture;
@@ -21,12 +19,4 @@ struct Sprite
 
 Sprite initSprite();
 void setTexture(Sprite* target, const Texture* texture);
-
-#pragma region Transformations
-void setPosition(Sprite* targetSprite, vec3 targetPos);
-
-void translate(Sprite* targetSprite, vec3 targetPos);
-void scale(Sprite* targetSprite, vec3 targetScale);
-#pragma endregion
-
 #endif

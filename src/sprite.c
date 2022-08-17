@@ -2,26 +2,9 @@
 
 #include <stdio.h>
 
-
-
 void setTexture(Sprite* target, const Texture* texture)
 {
     target->texture = *texture;
-}
-
-void setPosition(Sprite* targetSprite, vec3 targetPos)
-{
-    glm_vec3_copy(targetPos, targetSprite->position);
-};
-
-void translate(Sprite* targetSprite, vec3 targetPos)
-{
-    glm_vec3_add(targetSprite->position, targetPos, targetSprite->position);
-};
-
-void scale(Sprite* targetSprite, vec3 targetScale)
-{
-    glm_vec3_add(targetSprite->scale, targetScale, targetSprite->scale);
 }
 
 Sprite initSprite()
@@ -39,10 +22,8 @@ Sprite initSprite()
     };
 
     Sprite newSprite;
+    newSprite.transform = initTransform();
 
-    // transforms
-    glm_vec3_zero(newSprite.position);
-    glm_vec3_one(newSprite.scale);
     newSprite.vbo = createVBO(GL_ARRAY_BUFFER, true);
     newSprite.vao = createVAO();
 

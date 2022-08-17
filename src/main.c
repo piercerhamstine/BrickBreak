@@ -60,7 +60,7 @@ int main(void)
     SetUniformMat4(renderer.shader, "projection", projection[0]);
 
 
-    setPosition(&sprite, (vec3){-2.0, 1.0, 0.0f});
+    //setPosition(&sprite.transform, (vec3){-2.0, 1.0, 0.0f});
 
     float x = 0;
     while(!glfwWindowShouldClose(gameWindow))
@@ -73,7 +73,7 @@ int main(void)
         glClearColor(0.2f, 0.3f, 0.5f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        translate(&sprite, (vec3){moveX, 0.0f, 0.0f});
+        translate(&sprite.transform, (vec3){moveX, 0.0f, 0.0f});
         drawSprite(&renderer, &sprite);
         drawSprite(&renderer, &sprite2);
         
